@@ -1,16 +1,5 @@
-// const Navbar = () => {
-//     return (
-//         <nav className="bg-gray-900 h-10">
-
 import { Link } from "react-router";
-import { ThemeProvider } from "../../providers/theme-provider";
 import { ModeToggle } from "../mode-toggle/mode-toggle";
-
-//         </nav>
-//     );
-// };
-
-// export default Navbar;
 
 const Navbar = () => {
     return (
@@ -29,9 +18,7 @@ const Navbar = () => {
                 <div>
                     <ModeToggle></ModeToggle>
                 </div>
-                
             </div>
-                    
         </nav>
     );
 };
