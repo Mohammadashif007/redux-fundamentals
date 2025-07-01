@@ -24,7 +24,9 @@ const initialState: IInitialState = {
 const taskSlice = createSlice({
     name: "task",
     initialState,
-    reducers: {},
+    reducers: {
+        
+    },
 });
 
 export const selectTask = (state: RootState) => {
