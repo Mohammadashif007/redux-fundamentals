@@ -32,12 +32,16 @@ import { cn } from "../../../lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../../ui/calendar";
+import { useAppDispatch } from "../../../redux/hooks";
+import { addTask } from "../../../redux/features/task/taskSlice";
 
 export function AddTaskModal() {
     const form = useForm();
+    const dispatch = useAppDispatch();
 
     const onSubmit = (data) => {
         console.log(data);
+        dispatch(addTask(data));
     };
 
     return (
@@ -111,13 +115,13 @@ export function AddTaskModal() {
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent className="w-full">
-                                                <SelectItem value="high">
+                                                <SelectItem value="High">
                                                     High
                                                 </SelectItem>
-                                                <SelectItem value="medium">
+                                                <SelectItem value="Medium">
                                                     Medium
                                                 </SelectItem>
-                                                <SelectItem value="low">
+                                                <SelectItem value="Low">
                                                     Low
                                                 </SelectItem>
                                             </SelectContent>
