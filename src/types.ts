@@ -5,9 +5,10 @@ export type TTask = {
     dueDate: string;
     isCompleted: boolean;
     priority: "High" | "Medium" | "Low";
+    assignTo: string | null;
 };
 
 export type TUser = {
     name: string;
-    id: string
+    id: string;
 };

@@ -21,18 +21,22 @@ import { Input } from "../../ui/input";
 import { useAppDispatch } from "../../../redux/hooks";
 import { addUser } from "../../../redux/features/user/userSlice";
 import type { TUser } from "../../../types";
+import { useState } from "react";
 
 export function AddUserModal() {
+    const [open, setOpen] = useState(false);
     const form = useForm();
     const dispatch = useAppDispatch();
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         console.log(data);
         dispatch(addUser(data as TUser));
+        setOpen(false);
+        form.reset();
     };
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <form>
                 <DialogTrigger asChild>
                     <Button variant="outline">

@@ -2,16 +2,21 @@
 import { Edit2Icon, Trash2 } from "lucide-react";
 import { Checkbox } from "../../ui/checkbox";
 import { cn } from "../../../lib/utils";
-import { useAppDispatch } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
     deleteTask,
     toggleCompleteState,
 } from "../../../redux/features/task/taskSlice";
 import { AddTaskModal } from "./AddTaskModal";
+import { selectUser } from "../../../redux/features/user/userSlice";
 
 const TaskCard = ({ task }: { task: any }) => {
     const { id, title, description, priority, isCompleted } = task;
     const dispatch = useAppDispatch();
+    const users = useAppSelector(selectUser);
+
+    const user= users.find(user => user.id === task.assignTo)
+   
     return (
         <div className="px-5 py-4 border-2 border-amber-700 rounded-3xl m-5 flex gap-3 items-center justify-between">
             <div>
@@ -26,6 +31,7 @@ const TaskCard = ({ task }: { task: any }) => {
                     <h1 className={cn({ "line-through": isCompleted == true })}>
                         {title}
                     </h1>
+                    <p>Assign To: {user? user.name : "No one" }</p>
                 </div>
                 <p>{description}</p>
             </div>

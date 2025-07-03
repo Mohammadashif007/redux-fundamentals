@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction, nanoid } from "@reduxjs/toolkit";
 import type { TTask } from "../../../types";
 import type { RootState } from "../../store";
+import { removeUser } from "../user/userSlice";
 
 type IInitialState = {
     tasks: TTask[];
@@ -16,15 +17,24 @@ const initialState: IInitialState = {
             dueDate: "20-12-2020",
             isCompleted: false,
             priority: "High",
+            assignTo: null,
         },
     ],
     filter: "all",
 };
 
-type DriftTask = Pick<TTask, "title" | "description" | "dueDate" | "priority">;
+type DriftTask = Pick<
+    TTask,
+    "title" | "description" | "dueDate" | "priority" | "assignTo"
+>;
 
 const createTask = (taskData: DriftTask): TTask => {
-    return { id: nanoid(), isCompleted: false, ...taskData };
+    return {
+        id: nanoid(),
+        isCompleted: false,
+        ...taskData,
+        assignTo: taskData.assignTo ? taskData.assignTo : null,
+    };
 };
 
 const taskSlice = createSlice({
@@ -51,6 +61,13 @@ const taskSlice = createSlice({
         ) => {
             state.filter = action.payload;
         },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(removeUser, (state, action) => {
+            state.tasks.forEach((task) =>
+                task.assignTo === action.payload ? (task.assignTo = null) : task
+            );
+        });
     },
 });
 
