@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { Button } from "../../ui/button";
 import {
     Dialog,
@@ -34,14 +34,15 @@ import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../../ui/calendar";
 import { useAppDispatch } from "../../../redux/hooks";
 import { addTask } from "../../../redux/features/task/taskSlice";
+import type { TTask } from "../../../types";
 
 export function AddTaskModal() {
     const form = useForm();
     const dispatch = useAppDispatch();
 
-    const onSubmit = (data) => {
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
         console.log(data);
-        dispatch(addTask(data));
+        dispatch(addTask(data as TTask));
     };
 
     return (
